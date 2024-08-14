@@ -5,6 +5,7 @@ env:
   docker_username: ${{ github.actor }}
   docker_password: ${{ secrets.GITHUB_TOKEN }}
   GIT_COMMIT: ${{ github.sha }}
+  LOWERCASE_REPO: ${{ github.repository_owner }}/micronaut-app
 
 jobs:
   Build:
@@ -52,11 +53,7 @@ jobs:
           path: .
 
       - name: build docker
-        env:
-          LOWERCASE_REPO: ${{ github.repository | toLowerCase }}
         run: bash ci/build-docker.sh
 
       - name: push docker
-        env:
-          LOWERCASE_REPO: ${{ github.repository | toLowerCase }}
         run: bash ci/push-docker.sh
